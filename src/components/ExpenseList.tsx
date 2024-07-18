@@ -35,10 +35,10 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[] }> = ({ expenses }) => {
                     Description
                   </th>
                   <th scope="col" className=" px-6 py-4">
-                    Amount
+                    Date
                   </th>
                   <th scope="col" className=" px-6 py-4">
-                    Date
+                    Amount
                   </th>
                 </tr>
               </thead>

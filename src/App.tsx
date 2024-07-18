@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExpenseList from './components/ExpenseList';
 import ExpenseForm from './components/ExpenseForm';
 
@@ -13,34 +13,35 @@ type expenseItemArgs = {
   amount: number;
 };
 
-const list: expensesType[] = [
-  {
-    description: 'This is a bigger description than others to check width of the TR',
-    amount: 55,
-    timeStamp: 'Wed Jul 17 2024 18:25:22 GMT-0700 (Pacific Daylight Time)',
-  },
-  {
-    description: 'Another description',
-    amount: 25,
-    timeStamp: 'Wed Jul 17 2024 18:29:22 GMT-0700 (Pacific Daylight Time)',
-  },
-];
-
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [expenses, setExpenses] = useState<expensesType[]>(list);
+  const [expenses, setExpenses] = useState<expensesType[]>([]);
 
   const handleSubmit = (expenseItem: expenseItemArgs): void => {
-    setExpenses((prev) => [...prev, { ...expenseItem, timeStamp: String(new Date()) }]);
-    console.log(expenseItem);
+    const newExpense = { ...expenseItem, timeStamp: new Date().toISOString() };
+
+    setExpenses((prev) => {
+      const updatedExpenses = [...prev, newExpense];
+      localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
+      return updatedExpenses;
+    });
   };
+
+  useEffect(() => {
+    const savedExpenses = localStorage.getItem('expenses');
+
+    if (savedExpenses) {
+      setExpenses(JSON.parse(savedExpenses));
+    }
+  }, []);
 
   return (
     <>
       <div className="p-4 m-0 flex flex-col items-center container mx-auto ">
+        <h1>Expense Tracker</h1>
         <ExpenseList expenses={expenses} />
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3"
           type="button"
           onClick={() => setShowModal(true)}
         >
