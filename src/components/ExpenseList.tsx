@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { formatCurrency, formatDate } from '../helpers';
+import { formatDate } from '../helpers';
+import CustomTable from './presentational/CustomTable';
 import ExpenseItem from './ExpenseItem';
 
 type ExpenseType = {
@@ -29,25 +30,8 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[]; onDeleteExpense: (id: str
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
-            <table className="min-w-full text-sm font-light text-surface dark:text-white text-left">
-              <thead className="border-b border-neutral-200 bg-neutral-50 font-medium dark:border-white/10 dark:text-neutral-800">
-                <tr>
-                  <th scope="col" className=" px-6 py-4">
-                    #
-                  </th>
-                  <th scope="col" className=" px-6 py-4">
-                    Description
-                  </th>
-                  <th scope="col" className=" px-6 py-4">
-                    Date
-                  </th>
-                  <th scope="col" className=" px-6 py-4">
-                    Amount
-                  </th>
-                  <th scope="col" className=" px-6 py-4"></th>
-                </tr>
-              </thead>
-              <tbody className="text-left">
+            <CustomTable totalAmount={totalAmount}>
+              <>
                 {expenses.map((expense, index) => (
                   <ExpenseItem
                     key={index + expense.amount}
@@ -59,22 +43,8 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[]; onDeleteExpense: (id: str
                     deleteExpense={onDeleteExpense}
                   />
                 ))}
-              </tbody>
-
-              <tfoot className="border-b border-neutral-200 bg-neutral-900 font-medium dark:border-white/10 dark:text-neutral-">
-                <tr>
-                  <th scope="col" className=" px-6 py-4"></th>
-                  <th scope="col" className=" px-6 py-4">
-                    Total
-                  </th>
-                  <th scope="col" className=" px-6 py-4"></th>
-                  <th scope="col" className=" px-6 py-4">
-                    {formatCurrency(totalAmount)}
-                  </th>
-                  <th scope="col" className=" px-6 py-4"></th>
-                </tr>
-              </tfoot>
-            </table>
+              </>
+            </CustomTable>
           </div>
         </div>
       </div>
