@@ -6,9 +6,13 @@ type ExpenseType = {
   description: string;
   amount: number;
   timeStamp: string;
+  id: string;
 };
 
-const ExpenseList: React.FC<{ expenses: ExpenseType[] }> = ({ expenses }) => {
+const ExpenseList: React.FC<{ expenses: ExpenseType[]; onDeleteExpense: (id: string) => void }> = ({
+  expenses,
+  onDeleteExpense,
+}) => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   const amounts = expenses.reduce((prev, current) => {
@@ -40,6 +44,7 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[] }> = ({ expenses }) => {
                   <th scope="col" className=" px-6 py-4">
                     Amount
                   </th>
+                  <th scope="col" className=" px-6 py-4"></th>
                 </tr>
               </thead>
               <tbody className="text-left">
@@ -50,6 +55,8 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[] }> = ({ expenses }) => {
                     amount={expense.amount}
                     timeStamp={formatDate(expense.timeStamp)}
                     description={expense.description}
+                    id={expense.id}
+                    deleteExpense={onDeleteExpense}
                   />
                 ))}
               </tbody>
@@ -64,6 +71,7 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[] }> = ({ expenses }) => {
                   <th scope="col" className=" px-6 py-4">
                     {formatCurrency(totalAmount)}
                   </th>
+                  <th scope="col" className=" px-6 py-4"></th>
                 </tr>
               </tfoot>
             </table>
