@@ -17,9 +17,13 @@ const list: expensesType[] = [
   {
     description: 'This is a bigger description than others to check width of the TR',
     amount: 55,
-    timeStamp: '8:00pm',
+    timeStamp: 'Wed Jul 17 2024 18:25:22 GMT-0700 (Pacific Daylight Time)',
   },
-  { description: 'Another description', amount: 25, timeStamp: '9:00pm' },
+  {
+    description: 'Another description',
+    amount: 25,
+    timeStamp: 'Wed Jul 17 2024 18:29:22 GMT-0700 (Pacific Daylight Time)',
+  },
 ];
 
 function App() {

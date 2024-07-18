@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { formatCurrency } from '../helpers/formatCurrency';
+import { formatCurrency, formatDate } from '../helpers';
 import ExpenseItem from './ExpenseItem';
 
 type ExpenseType = {
@@ -48,7 +48,7 @@ const ExpenseList: React.FC<{ expenses: ExpenseType[] }> = ({ expenses }) => {
                     key={index + expense.amount}
                     index={index}
                     amount={expense.amount}
-                    timeStamp={expense.timeStamp}
+                    timeStamp={formatDate(expense.timeStamp)}
                     description={expense.description}
                   />
                 ))}
